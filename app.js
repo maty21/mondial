@@ -13,7 +13,9 @@ const public = path.join(__dirname, 'static');
 app.get('/', function (req, res) {
   res.sendFile(path.join(public, 'index.html'));
 });
-
+app.get('/first', function (req, res) {
+  res.sendFile(path.join(public, 'indexFirst.html'));
+});
 app.post('/saveResults', function (req, res) {
   if (!req.body) return res.sendStatus(400)
   tempSave[req.body.user] = req.body.selection;

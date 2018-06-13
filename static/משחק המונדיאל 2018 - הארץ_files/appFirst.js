@@ -99,7 +99,7 @@ function init(){
             localStorage.setItem('interTourUser',tempUid);
             localStorage.setItem('friendsName',tempUid);
             interTourUser.name = tempUid;
-            document.querySelector('.friendname').innerText = result.userName;
+           // document.querySelector('.friendname').innerText = result.userName;
            // fillTour('inter-brackets-0',JSON.parse(result.prediction));
             fillTour('inter-brackets',JSON.parse(localStorage.getItem('myPrediction')));
             if (localStorage.getItem('myPrediction')) {
@@ -651,8 +651,8 @@ function checkStatusHouse(parent, item) {
         ParentItems.map(function (item) {
             if (item.dataset.status === "null") {
                 item.dataset.status = "out";
-                item.querySelector('.input-wrapper-content').innerText = "בחוץ";
-                item.parentElement.querySelector('.inter-brackets-house-message').innerText = "הבחירות בבית זה הסתיימו"
+                item.querySelector('.input-wrapper-content').innerText = "לא נבחר";
+                item.parentElement.querySelector('.inter-brackets-house-message').innerText = "הבחירות למשחק זה הסתיימה"
             }
             parent.dataset.finished = "true";
             ParentItems = Array.from(parent.querySelectorAll('.country-select'));
@@ -815,15 +815,15 @@ saveButton.addEventListener('click',function(){
     saveToCookie();
     console.info('saved to cookie');
 });
-saveDown.addEventListener('click',function(){
+/* saveDown.addEventListener('click',function(){
     saveFunction();
     saveToCookie();
     console.info('saved to cookie');
-});
+}); */
 clearButton.addEventListener('click',function() {
     localStorage.removeItem('myPrediction')
     localStorage.removeItem('interTourUser')
-    fillTour('inter-brackets',cleanSlate);
+    fillTour('inter-brackets',null);
     //document.querySelector('.inter-tournament-wrapper').style.height = document.querySelector('.inter-brackets').getBoundingClientRect().height + 'px';
     const houses = document.querySelector('.inter-brackets-houses');
     scrollToElement(houses);
@@ -1034,6 +1034,19 @@ function fillTour(mainElemClass,obj) {
  */
 /* console.log(obj.winner.attrs);
 console.log(obj.winner.name); */
+if(obj==null){
+    fillHouses.map(function(house,i1){
+        house.querySelector('.inter-brackets-house-message').innerText = "נחשו תוצאה";
+        house.dataset.finished = false;
+        house.dataset.outcomes = "win,lost";
+
+        Array.from(house.querySelectorAll('.country-select')).map(function(slot,i2){
+            slot.dataset.status = null;
+            slot.querySelector('.input-wrapper-content').innerText ="בחר";
+        })
+    });
+}
+else {
     fillHouses.map(function(house,i1){
         house.querySelector('.inter-brackets-house-message').innerText = obj.houses[i1].msg;
         house.dataset.finished = obj.houses[i1].status;
@@ -1044,6 +1057,8 @@ console.log(obj.winner.name); */
             slot.querySelector('.input-wrapper-content').innerText = obj.houses[i1].slots[i2].buttonText;
         })
     });
+}
+  
  /*    fillSixteen.map(function(match,i1){
         match.querySelector('.inter-brackets-house-message').innerText = obj.sixteen[i1].msg;
         match.dataset.finished = obj.sixteen[i1].status;
