@@ -1,14 +1,49 @@
 const path = require('path');
 const express = require('express')
-
+const teams= {
+  saudiarabia:"saudiarabia",
+  russia:'russia',
+  egypt:'egypt',
+  uruguay:'uruguay',
+  morocco:'morocco',
+  iran:'iran',
+  portugal:'portugal',
+  spain:'spain',
+  france:'france',
+  australia:'australia',
+  argentina:'argentina',
+  iceland:'iceland',
+  peru:'peru',
+  denmark:'denmark',
+  croatia:'croatia',
+  nigeria:'nigeria',
+  costarica:'costarica',
+  serbia:'serbia',
+  germany:'germany',
+  mexico:'mexico',
+  brazil:'brazil',
+  switzerland:'switzerland',
+  sweden:'sweden',
+  korea:'korea',
+  belgium:'belgium',
+  panama:'panama',
+  tunisia:'tunisia',
+  england:'england',
+  colombia:'colombia',
+  japan:'japan',
+  poland:'poland',
+  senegal:'senegal'
+}
 const util = require('util');
 const fs = require('fs')
+const {csvGenerator,htmlGenerator} = require('./csvGenerator')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 const public = path.join(__dirname, 'static');
+
 
 // viewed at http://localhost:8080
 app.get('/second', function (req, res) {
@@ -42,6 +77,20 @@ app.post('/getResult', function (req, res) {
 
 
 });
+
+app.get('/generateCsv',(req,res)=>{
+  res.setHeader('Content-disposition', 'attachment; filename=' + 'res.csv');
+  res.setHeader('Content-type', '');
+  res.send(csvGenerator('./data/first.json'))
+})
+app.get(`/resultSecret`,(req,res)=>{
+  let result =htmlGenerator('./data/first.json')
+  res.send(result)
+})
+app.get(`/result`,(req,res)=>{
+  let result =htmlGenerator('./data/first.json')
+  res.send(`result will be publish after bet ending `)
+})
 app.post('/getResultFirst', function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(` getResultFirst:${req.body}`);
@@ -55,6 +104,8 @@ app.post('/getResultFirst', function (req, res) {
 
 
 });
+
+
 app.use('/', express.static(public));
 //app.get('/', (req, res) => res.send('Hello World!'))
 setInterval(() => {
@@ -63,7 +114,7 @@ setInterval(() => {
   console.log('file saved');
 }, 5000)
 app.listen(3001, () => {
-  tempSave = JSON.parse(fs.readFileSync('./data/first.json'));
-  tempSaveFirst = JSON.parse(fs.readFileSync('./data/second.json'));
+  tempSaveFirst = JSON.parse(fs.readFileSync('./data/first.json'));
+  tempSave = JSON.parse(fs.readFileSync('./data/second.json'));
   console.log('Example app listening on port 3001!')
 })
