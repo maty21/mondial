@@ -5,7 +5,7 @@
 let tempDate;
 let interTourUser = {name : "משתמש חדש", type: "anon", visits: 0};
 let mySelection = {};
-let stages = ['houses','sixteen','quarter','semi','final','winner'];
+let stages = ['houses'];
 let stages1 = ['sixteen','quarter','semi','final'];
 let stage = {};
 let matches = {};
@@ -701,7 +701,7 @@ function scrollToElement(element) {
 }
 
 //
-stage.final.addEventListener('click', function (e) {
+/* stage.final.addEventListener('click', function (e) {
     if (e.target.className === "country-select") {
         var matchElement = e.target.parentElement;//.parentElement.parentElement;
         var selectorElement = e.target;//.parentElement.parentElement;
@@ -766,7 +766,7 @@ stage.sixteen.addEventListener('click', function (e) {
             checkStatusMatch(matchElement,selectorElement);
         }
     }
-});
+}); */
 stage.houses.addEventListener('click', function (e) {
     if (e.target.className === "country-select") {
         var matchElement = e.target.parentElement;//.parentElement.parentElement;
@@ -788,7 +788,7 @@ stage.houses.addEventListener('click', function (e) {
         }
     }
 });
-fastToTopButton.addEventListener('click',function(){
+/* fastToTopButton.addEventListener('click',function(){
     window.removeEventListener('scroll', scrollAfterPrediction);
     goToTop();
     helloBar.classList.remove('overlay');
@@ -809,7 +809,7 @@ fastToTopButton.addEventListener('click',function(){
         document.querySelector('#inter-brackets').innerHTML = "לתחזית שלך"
 
     });
-});
+}); */
 saveButton.addEventListener('click',function(){
     saveFunction();
     saveToCookie();
@@ -909,12 +909,12 @@ function getMatchposS(matchnum, elem, status) {
 function saveToCookie() {
     mySelection = {};
     var jsonHouses = Array.from(document.querySelector('.inter-brackets .inter-brackets-houses').querySelectorAll('.inter-brackets-house'));
-    var jsonSixteen = Array.from(document.querySelector('.inter-brackets .inter-brackets-sixteen').querySelectorAll('.inter-brackets-match'));
+   /*  var jsonSixteen = Array.from(document.querySelector('.inter-brackets .inter-brackets-sixteen').querySelectorAll('.inter-brackets-match'));
     var jsonQuarter = Array.from(document.querySelector('.inter-brackets .inter-brackets-quarter').querySelectorAll('.inter-brackets-match'));
     var jsonSemi = Array.from(document.querySelector('.inter-brackets .inter-brackets-semi').querySelectorAll('.inter-brackets-match'));
     var jsonFinal = Array.from(document.querySelector('.inter-brackets .inter-brackets-final').querySelectorAll('.inter-brackets-match'));
     var jsonWinner = document.querySelector('.inter-brackets .inter-brackets-winner');
-    //winner
+    //winner */
     mySelection.user = mySelection.user || {};
     mySelection.user.name = interTourUser.name;
     mySelection.user.type = interTourUser.type;
@@ -935,7 +935,7 @@ function saveToCookie() {
         });
         mySelection.houses.push(tempObj);
     });
-    mySelection.sixteen = mySelection.sixteen || [];
+/*     mySelection.sixteen = mySelection.sixteen || [];
     jsonSixteen.map(function(match,i){
         let tempObj = {};
         tempObj.msg = match.querySelector('.inter-brackets-house-message').innerText;
@@ -982,17 +982,17 @@ function saveToCookie() {
         });
         mySelection.final.push(tempObj);
     });
-
-    mySelection.winner = mySelection.winner || {};
-        mySelection.winner.name = jsonWinner.querySelector('.winner-name').innerText;
+ */
+   /*  mySelection.winner = mySelection.winner || {};
+        mySelection.winner.name = jsonWinner.querySelector('.winner-name').innerText; */
         //mySelection.winner.flagUrl = jsonWinner.querySelector('.winner-flag').src;
-        mySelection.winner.attrs = {
+       /*  mySelection.winner.attrs = {
             header: jsonWinner.querySelector('.winner-stage').getAttribute('s-header'),
             text: jsonWinner.querySelector('.winner-stage').getAttribute('s-text'),
             desc: jsonWinner.querySelector('.winner-stage').getAttribute('s-desc'),
             link: jsonWinner.querySelector('.winner-stage').getAttribute('s-link'),
             img: jsonWinner.querySelector('.winner-stage').getAttribute('s-img'),
-        };
+        }; */
     let mySelection_str = (JSON.stringify(mySelection));
     //console.log(mySelection_str);
 
@@ -1026,14 +1026,14 @@ function saveToCookie() {
 }
 function fillTour(mainElemClass,obj) {
     var fillHouses = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-houses').querySelectorAll('.inter-brackets-house'));
-    var fillSixteen = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-sixteen').querySelectorAll('.inter-brackets-match'));
+    /* var fillSixteen = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-sixteen').querySelectorAll('.inter-brackets-match'));
     var fillQuarter = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-quarter').querySelectorAll('.inter-brackets-match'));
     var fillSemi = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-semi').querySelectorAll('.inter-brackets-match'));
     var fillFinal = Array.from(document.querySelector('.'+mainElemClass+' .inter-brackets-final').querySelectorAll('.inter-brackets-match'));
     var fillWinner = document.querySelector('.'+mainElemClass+' .inter-brackets-winner');
-
-console.log(obj.winner.attrs);
-console.log(obj.winner.name);
+ */
+/* console.log(obj.winner.attrs);
+console.log(obj.winner.name); */
     fillHouses.map(function(house,i1){
         house.querySelector('.inter-brackets-house-message').innerText = obj.houses[i1].msg;
         house.dataset.finished = obj.houses[i1].status;
@@ -1044,7 +1044,7 @@ console.log(obj.winner.name);
             slot.querySelector('.input-wrapper-content').innerText = obj.houses[i1].slots[i2].buttonText;
         })
     });
-    fillSixteen.map(function(match,i1){
+ /*    fillSixteen.map(function(match,i1){
         match.querySelector('.inter-brackets-house-message').innerText = obj.sixteen[i1].msg;
         match.dataset.finished = obj.sixteen[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
@@ -1083,15 +1083,15 @@ console.log(obj.winner.name);
             slot.querySelector('.country-name').innerText = obj.final[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.final[i1].slots[i2].buttonText;
         })
-    });
+    }); */
     //fillWinner.querySelector('.winner-flag').src = obj.winner.flagUrl;
-    fillWinner.querySelector('.inter-brackets-winner-headline h3').innerHTML = obj.winner.name;
+    /* fillWinner.querySelector('.inter-brackets-winner-headline h3').innerHTML = obj.winner.name;
     fillWinner.querySelector('.winner-name').innerText = obj.winner.name;
     fillWinner.querySelector('.winner-stage').setAttribute('s-header', obj.winner.attrs.header);
     fillWinner.querySelector('.winner-stage').setAttribute('s-img', obj.winner.attrs.img);
     fillWinner.querySelector('.winner-stage').setAttribute('s-link', obj.winner.attrs.link + "?myprediction=" + localStorage.getItem('interTourUserUid'));
-
-    fillWinner.querySelector('.winner-stage').setAttribute('s-desc', obj.winner.attrs.desc);
+ */
+ /*    fillWinner.querySelector('.winner-stage').setAttribute('s-desc', obj.winner.attrs.desc);
     //fillWinner.querySelector('.winner-stage').setAttribute('s-text', obj.winner.attrs.text);//localStorage.getItem('interTourDate'));
     var tempStages = {'fillsixteen': fillSixteen,'fillquarter': fillQuarter,'fillsemi': fillSemi,'fillfinal': fillFinal};
 
@@ -1112,8 +1112,8 @@ console.log(obj.winner.name);
 
         }
     });
-
-    document.querySelector('.inter-brackets > .inter-brackets-winner').classList.remove('stage-locked');
+ */
+  //  document.querySelector('.inter-brackets > .inter-brackets-winner').classList.remove('stage-locked');
     //document.querySelector('.inter-tournament-wrapper').style.height = document.querySelector('.'+ mainElemClass).getBoundingClientRect().height + 'px';
 }
 // let saveButton = document.getElementById('inter-brackets-save');
