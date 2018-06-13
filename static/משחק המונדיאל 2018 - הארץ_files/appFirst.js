@@ -92,7 +92,7 @@ function init(){
         document.querySelector('.inter-brackets-0').classList.add('overlay');
         console.info('משתמש מגיע מלינק שיתוף (כולל תחזית)');
         let tempUid = getUrlParameter('myprediction');
-        postAjax('/getResult' ,{user:tempUid},function(data) {
+        postAjax('/getResultFirst' ,{user:tempUid},function(data) {
             let result = JSON.parse(data);
             let mySelection_str = (JSON.stringify(result));
             localStorage.setItem('myPrediction',mySelection_str);
@@ -1002,7 +1002,7 @@ function saveToCookie() {
     localStorage.setItem('interTourUserVisits',interTourUser.visits);
 
 
-        postAjax('./saveResults' , {user:interTourUser.name,selection:mySelection} ,function(data) {
+        postAjax('./saveResultsFirst' , {user:interTourUser.name,selection:mySelection} ,function(data) {
 
             result = JSON.parse(data);
             //tempDate = new Date(result.createDate.$date);
