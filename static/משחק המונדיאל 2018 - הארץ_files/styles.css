@@ -21,7 +21,9 @@ body, html {
 
 * {
   box-sizing: border-box; }
-
+.meta-id{
+  height: 0px;
+}
 .art__hero {
   display: none; }
 
@@ -221,7 +223,7 @@ body, html {
     .inter-brackets .inter-brackets-houses .inter-brackets-house, .inter-brackets-0 .inter-brackets-houses .inter-brackets-house {
       padding: 12px;
       width: 100%;
-      margin: 0 12px 24px 12px;
+     margin: 5px 5px 5px 5px; 
       float: right;
       font-size: 0;
       background: #fff;
@@ -261,7 +263,7 @@ body, html {
             margin: 0 0px 24px 12px; } }
       @media (min-width: 1351px) {
         .inter-brackets .inter-brackets-houses .inter-brackets-house, .inter-brackets-0 .inter-brackets-houses .inter-brackets-house {
-          width: calc(50% - 12px); } }
+          width: calc(25% - 8px); } }
       .inter-brackets .inter-brackets-houses .inter-brackets-house h3, .inter-brackets-0 .inter-brackets-houses .inter-brackets-house h3 {
         font-size: 24px;
         border-bottom: 1px solid #00a9d5;
@@ -321,7 +323,7 @@ body, html {
         padding: 0 48px 48px 48px; } }
     @media (min-width: 1351px) {
       .inter-brackets .inter-brackets-houses, .inter-brackets .inter-brackets-sixteen, .inter-brackets .inter-brackets-quarter, .inter-brackets .inter-brackets-semi, .inter-brackets .inter-brackets-final, .inter-brackets-0 .inter-brackets-houses, .inter-brackets-0 .inter-brackets-sixteen, .inter-brackets-0 .inter-brackets-quarter, .inter-brackets-0 .inter-brackets-semi, .inter-brackets-0 .inter-brackets-final {
-        padding: 0 250px 70px 250px; } }
+        padding: 0 100px 70px 100px; } }
   .inter-brackets .inter-brackets-sixteen, .inter-brackets .inter-brackets-quarter, .inter-brackets .inter-brackets-semi, .inter-brackets .inter-brackets-final, .inter-brackets-0 .inter-brackets-sixteen, .inter-brackets-0 .inter-brackets-quarter, .inter-brackets-0 .inter-brackets-semi, .inter-brackets-0 .inter-brackets-final {
     text-align: center;
     font-size: 0;
@@ -376,7 +378,7 @@ body, html {
         margin: 0 22px;
         width: calc(50% - 12px); }
         .inter-brackets .inter-brackets-sixteen .inter-brackets-match .country-select-info .country-name, .inter-brackets .inter-brackets-quarter .inter-brackets-match .country-select-info .country-name, .inter-brackets .inter-brackets-semi .inter-brackets-match .country-select-info .country-name, .inter-brackets .inter-brackets-final .inter-brackets-match .country-select-info .country-name, .inter-brackets-0 .inter-brackets-sixteen .inter-brackets-match .country-select-info .country-name, .inter-brackets-0 .inter-brackets-quarter .inter-brackets-match .country-select-info .country-name, .inter-brackets-0 .inter-brackets-semi .inter-brackets-match .country-select-info .country-name, .inter-brackets-0 .inter-brackets-final .inter-brackets-match .country-select-info .country-name {
-          font-size: 18px;
+          font-size: 14px;
           margin-bottom: 9px; }
         .inter-brackets .inter-brackets-sixteen .inter-brackets-match .country-select:nth-child(odd), .inter-brackets .inter-brackets-quarter .inter-brackets-match .country-select:nth-child(odd), .inter-brackets .inter-brackets-semi .inter-brackets-match .country-select:nth-child(odd), .inter-brackets .inter-brackets-final .inter-brackets-match .country-select:nth-child(odd), .inter-brackets-0 .inter-brackets-sixteen .inter-brackets-match .country-select:nth-child(odd), .inter-brackets-0 .inter-brackets-quarter .inter-brackets-match .country-select:nth-child(odd), .inter-brackets-0 .inter-brackets-semi .inter-brackets-match .country-select:nth-child(odd), .inter-brackets-0 .inter-brackets-final .inter-brackets-match .country-select:nth-child(odd) {
           margin: 0 0px 12px 12px; }
@@ -469,8 +471,8 @@ body, html {
     .inter-brackets .country-select > *, .inter-brackets-0 .country-select > * {
       pointer-events: none; }
     .inter-brackets .country-select .country-name, .inter-brackets-0 .country-select .country-name {
-      font-size: 18px;
-      margin-bottom: 9px;
+      font-size: 16px;
+      margin-bottom: 30px;
       max-height: 24px; }
       @media (max-width: 767px) {
         .inter-brackets .country-select .country-name, .inter-brackets-0 .country-select .country-name {

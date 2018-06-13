@@ -636,15 +636,16 @@ function checkStatusMatch(matchItem,selectorItem) {
 }
 function checkStatusHouse(parent, item) {
     currentOutComes = parent.dataset.outcomes;
-    if (currentOutComes.includes('win,lost')) {
-        item.dataset.status = "win1";
-        item.querySelector('.input-wrapper-content').innerText = "מקום 1";
-        item.parentElement.querySelector('.inter-brackets-house-message').innerText = "בחרו מקום שני";
-        parent.dataset.outcomes = currentOutComes.replace('win,', '');
+    // if (currentOutComes.includes('win,lost')) {
+    //     item.dataset.status = "win1";
+    //     item.querySelector('.input-wrapper-content').innerText = "מקום 1";
+    //     item.parentElement.querySelector('.inter-brackets-house-message').innerText = "בחרו מקום שני";
+    //     parent.dataset.outcomes = currentOutComes.replace('win,', '');
 
-    } else if (currentOutComes.includes('lost')) {
+    // } else 
+    if (currentOutComes.includes('lost')) {
         item.dataset.status = "win2";
-        item.querySelector('.input-wrapper-content').innerText = "מקום 2";
+        item.querySelector('.input-wrapper-content').innerText = "ניחוש";
         parent.dataset.outcomes = currentOutComes.replace('lost', '');
         let ParentItems = Array.from(parent.querySelectorAll('.country-select'));
         ParentItems.map(function (item) {
@@ -707,7 +708,7 @@ stage.final.addEventListener('click', function (e) {
         if (selectorElement.dataset.status !== "null") {
             Array.from(matchElement.querySelectorAll('.country-select')).map(function (item) {
                 item.dataset.status = "null";
-                item.querySelector('.input-wrapper-content').innerText = 'בחרו';
+                item.querySelector('.input-wrapper-content').innerText = 'בחר';
             });
             matchElement.dataset.finished = "false";
             selectorElement.parentElement.querySelector('.inter-brackets-house-message').innerText = 'בחרו מנצחת';
@@ -921,11 +922,15 @@ function saveToCookie() {
     mySelection.houses = mySelection.houses || [];
     jsonHouses.map(function(house,i){
         let tempObj = {};
+        tempObj.meta = house.querySelector('.meta-id').innerText;
         tempObj.msg = house.querySelector('.inter-brackets-house-message').innerText;
         tempObj.outcomes = house.dataset.outcomes;
         tempObj.status = house.dataset.finished;
         tempObj.slots = tempObj.slots || [];
         Array.from(house.querySelectorAll('.country-select')).map(function(slot){
+            if(slot.querySelector('.input-wrapper-content').innerText=="ניחוש"){
+                tempObj.result =  slot.dataset.country;
+            }
             tempObj.slots.push({buttonText: slot.querySelector('.input-wrapper-content').innerText,name: slot.dataset.country, status: slot.dataset.status, flagUrl: slot.querySelector('.country-flag > img').src})
         });
         mySelection.houses.push(tempObj);
