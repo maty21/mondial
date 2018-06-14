@@ -90,14 +90,14 @@ app.get('/generateCsv',(req,res)=>{
   res.send(csvGenerator('./data/first.json'))
 })
 app.get(`/result`,(req,res)=>{
-  if(req.device.type=='desktop'){
+ // if(req.device.type=='desktop'){
     let result =htmlTransGenerator('./data/first.json')
     res.send(result)
-  }
-  else {
-    let result =htmlTransGeneratorMobile('./data/first.json')
-    res.send(result)
-  }
+  // }
+  // else {
+  //   let result =htmlTransGeneratorMobile('./data/first.json')
+  //   res.send(result)
+  // }
 })
 app.get(`/resultOld`,(req,res)=>{
   let result =htmlGenerator('./data/first.json')
