@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express')
+const device = require('express-device');
 const teams= {
   saudiarabia:"saudiarabia",
   russia:'russia',
@@ -36,12 +37,13 @@ const teams= {
 }
 const util = require('util');
 const fs = require('fs')
-const {csvGenerator,htmlGenerator,htmlTransGenerator} = require('./csvGenerator')
+const {csvGenerator,htmlGenerator,htmlTransGenerator,htmlTransGeneratorMobile} = require('./csvGenerator')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
 var bodyParser = require('body-parser')
 app.use(bodyParser.json())
+app.use(device.capture());
 const public = path.join(__dirname, 'static');
 
 
@@ -88,8 +90,14 @@ app.get('/generateCsv',(req,res)=>{
   res.send(csvGenerator('./data/first.json'))
 })
 app.get(`/result`,(req,res)=>{
-  let result =htmlTransGenerator('./data/first.json')
-  res.send(result)
+  if(req.device.type=='desktop'){
+    let result =htmlTransGenerator('./data/first.json')
+    res.send(result)
+  }
+  else {
+    let result =htmlTransGeneratorMobile('./data/first.json')
+    res.send(result)
+  }
 })
 app.get(`/resultOld`,(req,res)=>{
   let result =htmlGenerator('./data/first.json')

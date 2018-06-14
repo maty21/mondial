@@ -32,12 +32,12 @@ module.exports = (data) => `<!doctype html>
   </head>
   <body>
    <h3 style="  background: #00a9d5; background-image: url('../paper.png'); height: 250px; color: white;
-    background-size: 100% 100%;   font-size: 150px;  text-align: center;text-shadow:2px 8px 10px rgba(255, 255, 255, 0.4)   " >תוצאות</h3>
+    background-size: 100%   font-size: 150px;  text-align: center;text-shadow:2px 8px 10px rgba(255, 255, 255, 0.4)   " >תוצאות</h3>
     <table  id="example" class="table  table-hover table-bordered table-responsive-md">
         <thead>
           <tr >
           <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">#</th>
-          <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">name</th>
+          <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">שם</th>
               ${data.columns.map(c =>
       `<th scope="col"><img style="margin-right: 10px;width:30px;height:30px"src="../משחק המונדיאל 2018 - הארץ_files/${c[0]}.png"> </img>-<img style="margin-left: 10px;width:30px;height:30px"src="../משחק המונדיאל 2018 - הארץ_files/${c[1]}.png"> </img></th>`
              ).toString().replace(/\,/g, '')}
@@ -58,20 +58,6 @@ module.exports = (data) => `<!doctype html>
 $(document).ready(function() {
   $('#example').DataTable({
    
-    scrollX: true,
-    scrollY: "650px",
-    scrollCollapse: true,
-    paging:false,
-    fixedHeader: true,
-    columnDefs: [
-      { "width": "100px", "targets": Array(50).fill(0).map(Number.call, Number) }
-      ],
-      fixedColumns:   {
-        leftColumns: 2,
-        rightColumns: 1,
-    },
-    bInfo : false
-   
     
   });
   $('.dataTables_wrapper').find('label').each(function() {
@@ -87,6 +73,8 @@ $(document).ready(function() {
  
   $('.mdb-select').removeClass('form-control form-control-sm');
   $('.dataTables_filter').find('label').remove();
+  $($.fn.dataTable.tables(true)).DataTable()
+   .columns.adjust();
 });
 </script>      
     </body>

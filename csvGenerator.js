@@ -3,7 +3,7 @@ const { Parser } = require('json2csv')
 const fs = require('fs');
 const templateTable = require('./templateTable')
 const templateOldTable = require('./templateTableOld')
-
+const templateTableMobile = require('./templateTableMobile')
 const csvGenerator = (path) => {
     const data = jsonData(path);
     const fields = ['game', ...generateNamesColumns(data)];
@@ -117,6 +117,19 @@ const htmlTransGenerator = (path) => {
 // const rows = generateTransRow(data, correct);
     return templateTable({ columns, rows,correct });
 }
+
+
+const htmlTransGeneratorMobile = (path) => {
+    const data = jsonData(path);
+    const correct = getCorrectResult(data);
+    //const columns = generateTransColumn(data);
+    const columns = games;
+    const crowd = crowedResult(data)
+   const crowedRes = ['חוכמת ההמונים',...crowd,calcRes(crowd.map(c=>({result:c})),correct)] ;
+    const rows = [crowedRes,...generateTransRow(data, correct)];
+// const rows = generateTransRow(data, correct);
+    return templateTableMobile({ columns, rows,correct });
+}
 const htmlGenerator = (path) => {
     const data = jsonData(path);
     const columns = ['game', ...generateNamesColumns(data)];
@@ -126,4 +139,4 @@ const htmlGenerator = (path) => {
 }
 const jsonData = (path) => JSON.parse(fs.readFileSync(path))
 
-module.exports = { csvGenerator, htmlGenerator, htmlTransGenerator }
+module.exports = { csvGenerator, htmlGenerator, htmlTransGenerator,htmlTransGeneratorMobile }
