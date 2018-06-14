@@ -58,6 +58,14 @@ module.exports = (data) => `<!doctype html>
 $(document).ready(function() {
   $('#example').DataTable({
    
+    scrollX: true,
+
+      fixedColumns:   {
+        leftColumns: 2,
+        rightColumns: 1,
+    },
+    bInfo : false
+   
     
   });
   $('.dataTables_wrapper').find('label').each(function() {
