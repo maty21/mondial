@@ -36,7 +36,7 @@ const teams= {
 }
 const util = require('util');
 const fs = require('fs')
-const {csvGenerator,htmlGenerator} = require('./csvGenerator')
+const {csvGenerator,htmlGenerator,htmlTransGenerator} = require('./csvGenerator')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
@@ -60,8 +60,12 @@ app.post('/saveResults', function (req, res) {
 });
 app.post('/saveResultsFirst', function (req, res) {
   if (!req.body) return res.sendStatus(400)
-  tempSaveFirst[req.body.user] = req.body.selection;
-  console.log(req.body);
+  if(req.body.user=='Xresult'){
+    tempSaveFirst[req.body.user] = req.body.selection;
+    return res.sendStatus(200)
+  }else{
+    return res.sendStatus(400)
+  }
 
 });
 app.post('/getResult', function (req, res) {
@@ -83,13 +87,14 @@ app.get('/generateCsv',(req,res)=>{
   res.setHeader('Content-type', '');
   res.send(csvGenerator('./data/first.json'))
 })
-app.get(`/resultSecret`,(req,res)=>{
-  let result =htmlGenerator('./data/first.json')
+app.get(`/result`,(req,res)=>{
+  let result =htmlTransGenerator('./data/first.json')
   res.send(result)
 })
-app.get(`/result`,(req,res)=>{
+app.get(`/resultOld`,(req,res)=>{
   let result =htmlGenerator('./data/first.json')
-  res.send(`result will be publish after bet ending `)
+  res.send(result)
+ //s res.send(`result will be publish after bet ending `)
 })
 app.post('/getResultFirst', function (req, res) {
   if (!req.body) return res.sendStatus(400)
