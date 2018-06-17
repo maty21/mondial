@@ -1,0 +1,20 @@
+sudo: required
+language: node_js
+node_js:
+- '8'
+services:
+- docker
+if: tag IS present
+install:
+- ./install.sh
+- npm  install
+cache:
+  directories:
+  - node_modules
+script:
+- source ./setPath
+- export TAG=:$(git describe --abbrev=0 --tags)
+- docker login --username yehiyam --password ${DOCKER_HUB_PASS}
+- docker build -t hkube/mondial${TAG} .
+- docker push hkube/mondial${TAG}
+- envsubst < ./mondial.yml | kubectl apply -f -
