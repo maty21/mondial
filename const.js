@@ -33,7 +33,8 @@
     poland:'poland',
     senegal:'senegal'
   }
-
+  
+  
 const games=[
     [teams.russia,teams.saudiarabia],
     [teams.egypt,teams.uruguay],
