@@ -13,7 +13,7 @@ cache:
   - node_modules
 script:
 - source ./setPath
-- TAG=:$(git describe --abbrev=0 --tags)
+- export TAG=:$(git describe --abbrev=0 --tags)
 - docker login --username yehiyam --password ${DOCKER_HUB_PASS}
 - docker build -t hkube/mondial${TAG} .
 - docker push hkube/mondial${TAG}
