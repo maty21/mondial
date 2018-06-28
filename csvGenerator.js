@@ -154,6 +154,7 @@ const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
         results,
         score
     }
+    
     //  return [d.user.name, ...d.houses.map(m => m.result ? m.result : "nan"), calcRes(d.houses, correct)]
 })
 const crowedResult = (data) => {
