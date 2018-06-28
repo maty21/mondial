@@ -95,8 +95,8 @@ const getSecondCountryGuess = (h) => {
 const calcResSecond = (stage, correct, points) => {
     let score = 0;
 
-
-
+if(stage!=null)
+{
     stage.forEach((h, i) => {
         let country = getSecondCountryGuess(h);
 
@@ -110,7 +110,8 @@ const calcResSecond = (stage, correct, points) => {
     return score
 
 }
-
+return 0;
+}
 const generateTransRowFirst = (data, correct) => Object.values(data).map(d => {
     return {
         user: d.user.name,
@@ -160,7 +161,7 @@ const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
 const crowedResult = (data) => {
 
 
-    
+
 
     return Object.entries(gamesAsObject()).map(([k, v]) => {
         const tempCounter = {
