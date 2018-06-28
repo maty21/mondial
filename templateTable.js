@@ -111,9 +111,9 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging:false,
     fixedHeader: true,
-    order: [[ 6, "desc" ]],
+    order: [[ 65, "desc" ]],
     columnDefs: [
-      { "width": "100px", "targets": Array(6).fill(0).map(Number.call, Number) }
+      { "width": "100px", "targets": Array(65).fill(0).map(Number.call, Number) }
       ],
       fixedColumns:   {
         leftColumns: 2,

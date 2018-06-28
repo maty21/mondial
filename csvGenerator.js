@@ -223,7 +223,7 @@ const htmlTransGenerator = (first, second) => {
     //const crowedRes = ['חוכמת ההמונים', ...crowd, calcRes(crowd.map(c => ({ result: c })), correct)];
     const rows = [ ...generateTransRow(dataFirst, dataSecond, correct, correctSecond)];
     // const rows = generateTransRow(data, correct);
-    return templateTable({ columns, rows, correct });
+  return templateTable({ columns, rows, correct:newRes });
 }
 
 
