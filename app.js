@@ -39,6 +39,7 @@ const teams = {
 const util = require('util');
 const fs = require('fs')
 const { csvGenerator, htmlGenerator, htmlTransGenerator, htmlTransGeneratorMobile } = require('./csvGenerator')
+const csvGeneratorFirst = require('./csvGeneratorFirst')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
@@ -101,9 +102,10 @@ app.get('/generateCsv', (req, res) => {
   res.send(csvGenerator('./data/first.json'))
 })
 app.get(`/result`, (req, res) => {
+  let oldResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
   // if(req.device.type=='desktop'){
-  let result = htmlTransGenerator('./data/first.json','./data/second.json')
-  res.send(result)
+  //let result = htmlTransGenerator('./data/first.json','./data/second.json')
+  res.send(oldResult)
   // }
   // else {
   //   let result =htmlTransGeneratorMobile('./data/first.json')

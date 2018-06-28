@@ -1,7 +1,7 @@
 const { teams, games } = require('./const');
 const { Parser } = require('json2csv')
 const fs = require('fs');
-const templateTable = require('./templateTable')
+const templateTable = require('./templateTableFirst')
 const templateOldTable = require('./templateTableOld')
 const templateTableMobile = require('./templateTableMobile')
 const csvGenerator = (path) => {
