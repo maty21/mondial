@@ -140,7 +140,7 @@ const generateTransRow = (dataFirst, dataSecond, correct, correctSecond) => {
 }
 
 const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
-    if(d){
+    if(d&&d.sixteen){
         let score = 0;
         score = score + calcResSecond(d.sixteen, correct[0], 1)
         score = score + calcResSecond(d.quarter, correct[1], 2)
