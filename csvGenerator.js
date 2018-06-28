@@ -140,21 +140,24 @@ const generateTransRow = (dataFirst, dataSecond, correct, correctSecond) => {
 }
 
 const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
-    let score = 0;
-    score = score + calcResSecond(d.sixteen, correct[0], 1)
-    score = score + calcResSecond(d.quarter, correct[1], 2)
-    score = score + calcResSecond(d.semi, correct[2], 4)
-    score = score + calcResSecond(d.final, correct[3], 8)
-    let results = []
-    let tempResult = ['sixteen', 'quarter', 'semi', 'final'].map(g => {
-        return d[g].map(r => getSecondCountryGuess(r))
-    })
-    tempResult.forEach((r, i) => results = [...results, ...tempResult[i]])
-    return {
-        user: d.user.name,
-        results,
-        score
+    if(d){
+        let score = 0;
+        score = score + calcResSecond(d.sixteen, correct[0], 1)
+        score = score + calcResSecond(d.quarter, correct[1], 2)
+        score = score + calcResSecond(d.semi, correct[2], 4)
+        score = score + calcResSecond(d.final, correct[3], 8)
+        let results = []
+        let tempResult = ['sixteen', 'quarter', 'semi', 'final'].map(g => {
+            return d[g].map(r => getSecondCountryGuess(r))
+        })
+        tempResult.forEach((r, i) => results = [...results, ...tempResult[i]])
+        return {
+            user: d.user.name,
+            results,
+            score
+        }
     }
+    
 
     //  return [d.user.name, ...d.houses.map(m => m.result ? m.result : "nan"), calcRes(d.houses, correct)]
 })
