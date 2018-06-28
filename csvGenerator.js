@@ -159,6 +159,7 @@ const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
 })
 const crowedResult = (data) => {
 
+
     
 
     return Object.entries(gamesAsObject()).map(([k, v]) => {
