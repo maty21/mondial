@@ -1,43 +1,44 @@
 const path = require('path');
 const express = require('express')
 const device = require('express-device');
-const teams= {
-  saudiarabia:"saudiarabia",
-  russia:'russia',
-  egypt:'egypt',
-  uruguay:'uruguay',
-  morocco:'morocco',
-  iran:'iran',
-  portugal:'portugal',
-  spain:'spain',
-  france:'france',
-  australia:'australia',
-  argentina:'argentina',
-  iceland:'iceland',
-  peru:'peru',
-  denmark:'denmark',
-  croatia:'croatia',
-  nigeria:'nigeria',
-  costarica:'costarica',
-  serbia:'serbia',
-  germany:'germany',
-  mexico:'mexico',
-  brazil:'brazil',
-  switzerland:'switzerland',
-  sweden:'sweden',
-  korea:'korea',
-  belgium:'belgium',
-  panama:'panama',
-  tunisia:'tunisia',
-  england:'england',
-  colombia:'colombia',
-  japan:'japan',
-  poland:'poland',
-  senegal:'senegal'
+const {initStaged} = require('./savedHouses')
+const teams = {
+  saudiarabia: "saudiarabia",
+  russia: 'russia',
+  egypt: 'egypt',
+  uruguay: 'uruguay',
+  morocco: 'morocco',
+  iran: 'iran',
+  portugal: 'portugal',
+  spain: 'spain',
+  france: 'france',
+  australia: 'australia',
+  argentina: 'argentina',
+  iceland: 'iceland',
+  peru: 'peru',
+  denmark: 'denmark',
+  croatia: 'croatia',
+  nigeria: 'nigeria',
+  costarica: 'costarica',
+  serbia: 'serbia',
+  germany: 'germany',
+  mexico: 'mexico',
+  brazil: 'brazil',
+  switzerland: 'switzerland',
+  sweden: 'sweden',
+  korea: 'korea',
+  belgium: 'belgium',
+  panama: 'panama',
+  tunisia: 'tunisia',
+  england: 'england',
+  colombia: 'colombia',
+  japan: 'japan',
+  poland: 'poland',
+  senegal: 'senegal'
 }
 const util = require('util');
 const fs = require('fs')
-const {csvGenerator,htmlGenerator,htmlTransGenerator,htmlTransGeneratorMobile} = require('./csvGenerator')
+const { csvGenerator, htmlGenerator, htmlTransGenerator, htmlTransGeneratorMobile } = require('./csvGenerator')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
@@ -62,17 +63,26 @@ app.post('/saveResults', function (req, res) {
 });
 app.post('/saveResultsFirst', function (req, res) {
   if (!req.body) return res.sendStatus(400)
-  if(req.body.user=='Xresult'){
+  if (req.body.user == 'Xresult') {
     tempSaveFirst[req.body.user] = req.body.selection;
     return res.sendStatus(200)
-  }else{
+  } else {
     return res.sendStatus(400)
   }
 
 });
+
+app.post('/getSecondInit', function (req, res) {
+ 
+  res.json(initStaged)
+
+});
+
+
+
 app.post('/getResult', function (req, res) {
   if (!req.body) return res.sendStatus(400)
-  console.log(` getResult:${req.body}`);
+  console.log(` getResultFirst:${req.body}`);
   // res.send('Hello World!')
   if (tempSave[req.body.user]) {
     res.json(tempSave[req.body.user])
@@ -82,27 +92,28 @@ app.post('/getResult', function (req, res) {
   }
 
 
+
 });
 
-app.get('/generateCsv',(req,res)=>{
+app.get('/generateCsv', (req, res) => {
   res.setHeader('Content-disposition', 'attachment; filename=' + 'res.csv');
   res.setHeader('Content-type', '');
   res.send(csvGenerator('./data/first.json'))
 })
-app.get(`/result`,(req,res)=>{
- // if(req.device.type=='desktop'){
-    let result =htmlTransGenerator('./data/first.json')
-    res.send(result)
+app.get(`/result`, (req, res) => {
+  // if(req.device.type=='desktop'){
+  let result = htmlTransGenerator('./data/first.json','./data/second.json')
+  res.send(result)
   // }
   // else {
   //   let result =htmlTransGeneratorMobile('./data/first.json')
   //   res.send(result)
   // }
 })
-app.get(`/resultOld`,(req,res)=>{
-  let result =htmlGenerator('./data/first.json')
+app.get(`/resultOld`, (req, res) => {
+  let result = htmlGenerator('./data/first.json')
   res.send(result)
- //s res.send(`result will be publish after bet ending `)
+  //s res.send(`result will be publish after bet ending `)
 })
 app.post('/getResultFirst', function (req, res) {
   if (!req.body) return res.sendStatus(400)

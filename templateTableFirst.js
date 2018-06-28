@@ -87,7 +87,7 @@ module.exports = (data) => `<!doctype html>
           <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">#</th>
           <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">name</th>
               ${data.columns.map(c =>
-      `<th scope="col"><img  title="${c[0]}" style="margin-right: 10px;width:30px;height:30px"src="../files/${c[0]}.png"> </img>-<img title="${c[1]}"style="margin-left: 10px;width:30px;height:30px"src="../files/${c[1]}.png"> </img></th>`
+      `<th scope="col"><img  title="${c[0]}" style="margin-right: 10px;width:30px;height:30px"src="../משחק המונדיאל 2018 - הארץ_files/${c[0]}.png"> </img>-<img title="${c[1]}"style="margin-left: 10px;width:30px;height:30px"src="../משחק המונדיאל 2018 - הארץ_files/${c[1]}.png"> </img></th>`
              ).toString().replace(/\,/g, '')}
              <th style="background-color: #004988;color: white; border-color: #004988;" scope="col">ציון</th>
          </tr>
@@ -96,8 +96,8 @@ module.exports = (data) => `<!doctype html>
          ${data.rows.map((r, index) =>
     `<tr >
           <th   style=" background-color: #004988;color: white; border-color: #004988;" "scope="row">${index}</th>
-           ${Object.values(r).map((tr,i)=>(i==0||i==64)?`<td  style="background-color: #004988;color: white; border-color: #004988;"" style="text-align:center;">${tr}</td>`:
-            `<td style="     border-style: none;background-color:${data.correct[i-1]=='nan'?'white':data.correct[i-1]==tr?'#a4e4a4': '#f7abab'}; border-bottom-color: white;border-top-color: white; text-align: center;"><img  title="${tr}" style="margin-right: 10px;width:20px;height:20px"src="../files/${tr}.png"/> </td>`).toString().replace(/\,/g, '')}
+           ${Object.values(r).map((tr,i)=>(i==0||i==49)?`<td  style="background-color: #004988;color: white; border-color: #004988;"" style="text-align:center;">${tr}</td>`:
+            `<td style="     border-style: none;background-color:${data.correct[i-1]=='nan'?'white':data.correct[i-1]==tr?'#a4e4a4': '#f7abab'}; border-bottom-color: white;border-top-color: white; text-align: center;"><img  title="${tr}" style="margin-right: 10px;width:20px;height:20px"src="../משחק המונדיאל 2018 - הארץ_files/${tr}.png"/> </td>`).toString().replace(/\,/g, '')}
         </tr>` ).toString().replace(/\,/g, '')}
         </tbody>
         </table>
@@ -111,9 +111,9 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging:false,
     fixedHeader: true,
-    order: [[ 65, "desc" ]],
+    order: [[ 50, "desc" ]],
     columnDefs: [
-      { "width": "100px", "targets": Array(65).fill(0).map(Number.call, Number) }
+      { "width": "100px", "targets": Array(50).fill(0).map(Number.call, Number) }
       ],
       fixedColumns:   {
         leftColumns: 2,

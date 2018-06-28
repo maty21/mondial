@@ -34,7 +34,7 @@
     senegal:'senegal'
   }
   
-  
+
 const games=[
     [teams.russia,teams.saudiarabia],
     [teams.egypt,teams.uruguay],
@@ -85,8 +85,6 @@ const games=[
     [teams.england,teams.belgium],
     [teams.panama,teams.tunisia]
     
-    
-  
   ]
 
 
