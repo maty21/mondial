@@ -28,9 +28,18 @@ stages.map(function(level){
 let bodyScroll;
 function ready(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
-        fn();
+        postAjax('/getSecondInit' ,{user:tempUid},function(data) {
+        //    let result = JSON.parse(data);
+            fillDataStaged(data);
+            fn();
+        });
     } else {
-        document.addEventListener('DOMContentLoaded', fn);
+        postAjax('/getSecondInit',{}, function(data) {
+        //    let result = JSON.parse(data);
+            fillDataStaged(data);
+            fn();
+           //document.addEventListener('DOMContentLoaded', fn);
+        });
     }
 }
 ready(init);
@@ -81,7 +90,7 @@ function init(){
     });
 
     //document.querySelector('.inter-tournament-wrapper').style.height = document.querySelector('.inter-brackets-0').clientHeight + "px";
-
+    
     if (getUrlParameter('myprediction')) {
 
         saveButton.classList.add('hideme');
@@ -187,6 +196,24 @@ function init(){
     messageContainer.classList.add('show');
     helloBoxWrapperHeight = document.getElementById('inter-tournament-hello-wrapper').offsetHeight;
 
+}
+function fillDataStaged(data){
+    let result = JSON.parse(data);
+    let tempUid= "newUser"
+    let mySelection_str = (JSON.stringify(result.selection));
+ //   localStorage.setItem('myPrediction',mySelection_str);
+   // localStorage.setItem('interTourUser',tempUid);
+//    localStorage.setItem('friendsName',tempUid);
+ //   interTourUser.name = tempUid;
+    document.querySelector('.friendname').innerText = result.userName;
+   // fillTour('inter-brackets-0',JSON.parse(result.prediction));
+    fillTour('inter-brackets',result.selection);
+    let matches = {};
+    matches.sixteen = stage.sixteen.querySelectorAll('.inter-brackets-match');
+    // scrollIt(Array.from(matches.sixteen)[parentItem.dataset.match])
+    //let stepforIphone = (isMobile.apple.phone) ? 1 : 0;
+    const nextsixteen = Array.from(matches.sixteen)[0];
+    scrollToElement(nextsixteen);
 }
 function debounce(func, wait, immediate) {
     var timeout;
@@ -686,6 +713,7 @@ function scrollToElement(element) {
 
     if (element) {
         let top = window.scrollY + parseInt(element.getBoundingClientRect().top, 10) - 6;
+        let helloBoxWrapperHeight = document.getElementById('inter-tournament-hello-wrapper').offsetHeight +90;
         const helloBox = document.querySelector('.inter-tournament-hello');
         top = helloBox.classList.contains('lock') ? top - helloBoxWrapperHeight : top - (helloBoxWrapperHeight * 2);
 
@@ -1044,6 +1072,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.sixteen[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.sixteen[i1].slots[i2].status;
+            slot.dataset.country = obj.sixteen[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.sixteen[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.sixteen[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.sixteen[i1].slots[i2].buttonText;
@@ -1054,6 +1083,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.quarter[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.quarter[i1].slots[i2].status;
+            slot.dataset.country = obj.quarter[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.quarter[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.quarter[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.quarter[i1].slots[i2].buttonText;
@@ -1064,6 +1094,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.semi[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.semi[i1].slots[i2].status;
+            slot.dataset.country = obj.semi[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.semi[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.semi[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.semi[i1].slots[i2].buttonText;
@@ -1074,6 +1105,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.final[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.final[i1].slots[i2].status;
+            slot.dataset.country = obj.final[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.final[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.final[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.final[i1].slots[i2].buttonText;
