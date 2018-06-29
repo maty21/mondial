@@ -81,7 +81,6 @@ app.post('/getSecondInit', function (req, res) {
 });
 
 
-
 app.post('/getResult', function (req, res) {
   if (!req.body) return res.sendStatus(400)
   console.log(` getResultFirst:${req.body}`);
@@ -92,9 +91,6 @@ app.post('/getResult', function (req, res) {
   else {
     res.json(null)
   }
-
-
-
 });
 
 app.get('/generateCsv', (req, res) => {
@@ -102,24 +98,19 @@ app.get('/generateCsv', (req, res) => {
   res.setHeader('Content-type', '');
   res.send(csvGenerator('./data/first.json'))
 })
-app.get(`/result`, (req, res) => {
- // let oldResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
-  // if(req.device.type=='desktop'){
+
+app.get(`/resultSecret`, (req, res) => {
   let result = csvGeneratorSecond.htmlTransGenerator('./data/second.json')
   res.send(result)
-  // }
-  // else {
-  //   let result =htmlTransGeneratorMobile('./data/first.json')
-  //   res.send(result)
-  // }
 })
+
 app.get(`/AllResult`, (req, res) => {
  
    let result = htmlTransGenerator('./data/first.json','./data/second.json')
    res.send(result)
   
  })
-app.get(`/resultFirst`, (req, res) => {
+app.get(`/result`, (req, res) => {
   let firstResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
    res.send(firstResult)
  
