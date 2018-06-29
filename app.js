@@ -40,6 +40,7 @@ const util = require('util');
 const fs = require('fs')
 const { csvGenerator, htmlGenerator, htmlTransGenerator, htmlTransGeneratorMobile } = require('./csvGenerator')
 const csvGeneratorFirst = require('./csvGeneratorFirst')
+const csvGeneratorSecond = require('./csvGeneratorSecond')
 let tempSave = {};
 let tempSaveFirst = {};
 const app = express()
@@ -102,16 +103,27 @@ app.get('/generateCsv', (req, res) => {
   res.send(csvGenerator('./data/first.json'))
 })
 app.get(`/result`, (req, res) => {
-  let oldResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
+ // let oldResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
   // if(req.device.type=='desktop'){
-  //let result = htmlTransGenerator('./data/first.json','./data/second.json')
-  res.send(oldResult)
+  let result = csvGeneratorSecond.htmlTransGenerator('./data/second.json')
+  res.send(result)
   // }
   // else {
   //   let result =htmlTransGeneratorMobile('./data/first.json')
   //   res.send(result)
   // }
 })
+app.get(`/AllResult`, (req, res) => {
+ 
+   let result = htmlTransGenerator('./data/first.json','./data/second.json')
+   res.send(result)
+  
+ })
+app.get(`/resultFirst`, (req, res) => {
+  let firstResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
+   res.send(firstResult)
+ 
+ })
 app.get(`/resultOld`, (req, res) => {
   let result = htmlGenerator('./data/first.json')
   res.send(result)

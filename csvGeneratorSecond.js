@@ -1,7 +1,7 @@
 const { teams, games } = require('./const');
 const { Parser } = require('json2csv')
 const fs = require('fs');
-const templateTable = require('./templateTable')
+const templateTable = require('./templateTableSecond')
 const templateOldTable = require('./templateTableOld')
 const templateTableMobile = require('./templateTableMobile')
 const csvGenerator = (path) => {
@@ -120,20 +120,20 @@ const generateTransRowFirst = (data, correct) => Object.values(data).map(d => {
         score: calcRes(d.houses, correct)
     }
 })
-const generateTransRow = (dataFirst, dataSecond, correct, correctSecond) => {
-    const first = generateTransRowFirst(dataFirst, correct)
+const generateTransRow = ( dataSecond, correctSecond) => {
+    //const first = generateTransRowFirst(dataFirst, correct)
     const second = generateTransRowSecond(dataSecond, correctSecond);
     
-    let final = first.map(f => {
+    let final = second.map(s => {
         let secondResultsFinal = Array(15).fill().map(i=>'nan');
         let secondScoreFinal =0;
-        let usr = second.find(n=>n.user==f.user)
-        if (usr) {
-            secondResultsFinal =usr.results
-            secondScoreFinal= usr.score
-        }
+      //  let usr = second.find(n=>n.user==f.user)
+      //  if (usr) {
+        //     secondResultsFinal =usr.results
+        //     secondScoreFinal= usr.score
+        // }
        
-        return [f.user,  ...secondResultsFinal,...f.results, f.score + secondScoreFinal]
+        return [s.user,  ...s.results,  s.score]
     })
     return final;
 
@@ -145,8 +145,8 @@ const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
         let score = 0;
         score = score + calcResSecond(d.sixteen, correct[0], 1)
         score = score + calcResSecond(d.quarter, correct[1], 2)
-        score = score + calcResSecond(d.semi, correct[2], 4)
-        score = score + calcResSecond(d.final, correct[3], 8)
+        score = score + calcResSecond(d.semi, correct[2], 3)
+        score = score + calcResSecond(d.final, correct[3], 4)
         let results = []
         let tempResult = ['sixteen', 'quarter', 'semi', 'final'].map(g => {
             return d[g].map(r => getSecondCountryGuess(r))
@@ -207,29 +207,29 @@ const addSecondStageToGames = (games, dataSecond) => {
         ..._getGamesFromSpecificLevel(Xresult.quarter),
         ..._getGamesFromSpecificLevel(Xresult.semi),
         ..._getGamesFromSpecificLevel(Xresult.final),
-        ...games,
+     //   ...games,
     ]
     return calcGames;
 }
 
 const _getGamesFromSpecificLevel = (level) => level.map(s => s.slots.map(n => (n.name == "" ? n.name = 'place-holder' : n.name)))
 
-const htmlTransGenerator = (first, second) => {
-    const dataFirst = jsonData(first);
+const htmlTransGenerator = ( second) => {
+    //const dataFirst = jsonData(first);
     const dataSecond = jsonData(second);
     const gamesCalc = addSecondStageToGames(games, dataSecond)
-    const correct = getCorrectResult(dataFirst);
+   // const correct = getCorrectResult(dataFirst);
     const correctSecond = getCorrectResults(dataSecond);
     let newRes = [];
     //const columns = generateTransColumn(data);
     correctSecond.forEach(r => newRes = [...newRes, ...r])
     //let secondGuess = generateTransRowSecond(dataSecond, correctSecond)
-    newRes = [...newRes, ...correct]
+  //  newRes = [...newRes, ...correct]
     const columns = gamesCalc;
    // const crowedRes = []
     //  const crowd = crowedResult(data)
     //const crowedRes = ['חוכמת ההמונים', ...crowd, calcRes(crowd.map(c => ({ result: c })), correct)];
-    const rows = [ ...generateTransRow(dataFirst, dataSecond, correct, correctSecond)];
+    const rows = [ ...generateTransRow( dataSecond,  correctSecond)];
     // const rows = generateTransRow(data, correct);
   return templateTable({ columns, rows, correct:newRes });
 }
