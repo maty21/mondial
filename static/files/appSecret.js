@@ -1024,12 +1024,8 @@ function saveToCookie() {
     localStorage.setItem('myPrediction',mySelection_str);
     localStorage.setItem('interTourUserVisits',interTourUser.visits);
 
-    let query =window.location.search.slice(1).split('=');
-    let token =null;
-     if(query[0]=='token'){
-        token=query[1];
-     }
-        postAjax('/saveResults' , {user:interTourUser.name,selection:mySelection,token} ,function(data) {
+
+        postAjax('./saveResultsSecret' , {user:interTourUser.name,selection:mySelection} ,function(data) {
 
             result = JSON.parse(data);
             //tempDate = new Date(result.createDate.$date);
@@ -1076,6 +1072,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.sixteen[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.sixteen[i1].slots[i2].status;
+            slot.dataset.country = obj.sixteen[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.sixteen[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.sixteen[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.sixteen[i1].slots[i2].buttonText;
@@ -1086,6 +1083,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.quarter[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.quarter[i1].slots[i2].status;
+            slot.dataset.country = obj.quarter[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.quarter[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.quarter[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.quarter[i1].slots[i2].buttonText;
@@ -1096,6 +1094,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.semi[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.semi[i1].slots[i2].status;
+            slot.dataset.country = obj.semi[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.semi[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.semi[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.semi[i1].slots[i2].buttonText;
@@ -1106,6 +1105,7 @@ console.log(obj.winner.name);
         match.dataset.finished = obj.final[i1].status;
         Array.from(match.querySelectorAll('.country-select')).map(function(slot,i2){
             slot.dataset.status = obj.final[i1].slots[i2].status;
+            slot.dataset.country = obj.final[i1].slots[i2].name;
             slot.querySelector('.country-flag > img').src = obj.final[i1].slots[i2].flagUrl;
             slot.querySelector('.country-name').innerText = obj.final[i1].slots[i2].nameHeb;
             slot.querySelector('.input-wrapper-content').innerText = obj.final[i1].slots[i2].buttonText;

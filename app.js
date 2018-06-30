@@ -59,6 +59,9 @@ app.get('/', function (req, res) {
 });
 app.post('/saveResults', function (req, res) {
   if (!req.body) return res.sendStatus(400)
+  if(req.body.token=='maccabiHaifa'){
+    tempSave[req.body.user] = req.body.selection;
+  }
   if (req.body.user == 'Xresult') {
    // tempSaveFirst[req.body.user] = req.body.selection;
     tempSave[req.body.user] = req.body.selection;

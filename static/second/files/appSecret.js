@@ -1024,12 +1024,8 @@ function saveToCookie() {
     localStorage.setItem('myPrediction',mySelection_str);
     localStorage.setItem('interTourUserVisits',interTourUser.visits);
 
-    let query =window.location.search.slice(1).split('=');
-    let token =null;
-     if(query[0]=='token'){
-        token=query[1];
-     }
-        postAjax('/saveResults' , {user:interTourUser.name,selection:mySelection,token} ,function(data) {
+
+        postAjax('./saveResultsSecret' , {user:interTourUser.name,selection:mySelection} ,function(data) {
 
             result = JSON.parse(data);
             //tempDate = new Date(result.createDate.$date);
