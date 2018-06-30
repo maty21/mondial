@@ -35,7 +35,7 @@ const getCorrectResultSecond = (data, level = "houses") => {
 
 const correctResult = (data) => ['תשובה', ...data['Xresult'].houses.map(m => m.result ? m.result : "nan")];
 
-const gamesAsObject = () => ({ ...games })
+const gamesAsObject = (g=games) => ({ ...g })
 const generateNamesColumns = (data) => Object.keys(data).map(k => k)
 
 
@@ -162,36 +162,33 @@ const generateTransRowSecond = (data, correct) => Object.values(data).map(d => {
 
     //  return [d.user.name, ...d.houses.map(m => m.result ? m.result : "nan"), calcRes(d.houses, correct)]
 })
-const crowedResult = (data) => {
+const crowedResult = (games,data) => {
 
 
 
 
-    return Object.entries(gamesAsObject()).map(([k, v]) => {
+    return Object.entries(gamesAsObject(games)).map(([k, v]) => {
         const tempCounter = {
             home: 0,
-            x: 0,
             away: 0
         }
+
         Object.values(data).forEach(d => {
-            let res = d.houses.find(h => h.meta == +k + 1).result;
-            if (res == 'tie') {
-                tempCounter['x'] = tempCounter['x'] + 1;
-            }
-            else if (res == v[0]) {
+            
+            let res = d[+k+1];
+           if (res == v[0]) {
                 tempCounter.home = tempCounter.home + 1;
             }
             else if (res == v[1]) {
                 tempCounter.away = tempCounter.away + 1;
             }
         })
-        if (tempCounter.home >= tempCounter.x && tempCounter.home >= tempCounter.away) {
+        if (tempCounter.home >=  tempCounter.away) {
             return v[0]
         }
-        else if (tempCounter.away >= tempCounter.x && tempCounter.away > tempCounter.home) {
+        else  {
             return v[1]
         }
-        else return 'tie'
     })
 
 }
@@ -224,28 +221,55 @@ const htmlTransGenerator = ( second) => {
     //const columns = generateTransColumn(data);
     correctSecond.forEach(r => newRes = [...newRes, ...r])
     //let secondGuess = generateTransRowSecond(dataSecond, correctSecond)
-  //  newRes = [...newRes, ...correct]
+    //  newRes = [...newRes, ...correct]
     const columns = gamesCalc;
-   // const crowedRes = []
-    //  const crowd = crowedResult(data)
-    //const crowedRes = ['חוכמת ההמונים', ...crowd, calcRes(crowd.map(c => ({ result: c })), correct)];
+    //const crowdRes = crowedResult(data)
+    // const crowedRes = []
     const rows = [ ...generateTransRow( dataSecond,  correctSecond)];
+    let crowd = crowedResult(gamesCalc,rows);
+    const crowdScore = getCorrectCrowdResult(crowd,rows.find(r=>r[0]=='Xresult'))
+    const crowdRes = ['חוכמת ההמונים', ...crowd, crowdScore];
+   
     // const rows = generateTransRow(data, correct);
-  return templateTable({ columns, rows, correct:newRes });
+  return templateTable({ columns,rows:[crowdRes,...rows] , correct:newRes });
 }
-
-
+const getCorrectCrowdResult =(crowd,XresultScore)=>{
+    let crowdScore=0;
+    crowd.forEach((c,i)=>{
+  let scorePoint =0
+    if(i<7){
+      scorePoint=1;
+    }
+    else if(i>7&&i<12)
+    {
+        scorePoint =2
+    }
+    
+    else if(i>12&&i<16) 
+    {
+        scorePoint =3;
+    }
+    else{
+        scorePoint =4;
+    }
+  crowdScore = c==XresultScore[i+1]?scorePoint+crowdScore:crowdScore;
+})
+return crowdScore
+}
 const htmlTransGeneratorMobile = (path) => {
     const data = jsonData(path);
     const correct = getCorrectResult(data);
     //const columns = generateTransColumn(data);
     const columns = games;
     const crowd = crowedResult(data)
-    const crowedRes = ['חוכמת ההמונים', ...crowd, calcRes(crowd.map(c => ({ result: c })), correct)];
+   const crowdScore= getCorrectCrowdResult(crowd,rows.find(r=>r[0]=="Xresult"))
+
+   // const crowedRes = ['חוכמת ההמונים', ...crowd, , correct)];
     const rows = [crowedRes, ...generateTransRow(data, correct)];
     // const rows = generateTransRow(data, correct);
     return templateTableMobile({ columns, rows, correct });
 }
+
 const htmlGenerator = (path) => {
     const data = jsonData(path);
     const columns = ['game', ...generateNamesColumns(data)];

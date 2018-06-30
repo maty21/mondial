@@ -59,7 +59,13 @@ app.get('/', function (req, res) {
 });
 app.post('/saveResults', function (req, res) {
   if (!req.body) return res.sendStatus(400)
-  tempSave[req.body.user] = req.body.selection;
+  if (req.body.user == 'Xresult') {
+   // tempSaveFirst[req.body.user] = req.body.selection;
+    tempSave[req.body.user] = req.body.selection;
+    return res.sendStatus(200)
+  } else {
+    return res.sendStatus(400)
+  }
   console.log(req.body);
 
 });
@@ -99,7 +105,7 @@ app.get('/generateCsv', (req, res) => {
   res.send(csvGenerator('./data/first.json'))
 })
 
-app.get(`/resultSecret`, (req, res) => {
+app.get(`/result`, (req, res) => {
   let result = csvGeneratorSecond.htmlTransGenerator('./data/second.json')
   res.send(result)
 })
