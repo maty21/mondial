@@ -116,7 +116,7 @@ app.get(`/AllResult`, (req, res) => {
    res.send(result)
   
  })
-app.get(`/result`, (req, res) => {
+app.get(`/firstresult`, (req, res) => {
   let firstResult = csvGeneratorFirst.htmlTransGenerator('./data/first.json') ;
    res.send(firstResult)
  
